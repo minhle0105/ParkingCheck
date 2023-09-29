@@ -19,41 +19,39 @@ public:
         int minute = stoi(res.at(3).substr(3, 2));
         if (date == "Sun")
         {
-            cout << "CURRENTLY: PARKING ON THE RIGHT SIDE." << endl;
+            print_reminder_current("RIGHT");
         }
         else if (date == "Mon" || date == "Wed" || date == "Fri")
         {
             if (hour > 18)
             {
-                cout << "CURRENTLY: PARKING ON THE LEFT SIDE." << endl;
+                print_reminder_current("LEFT");
                 print_reminder_to_move(-1, -1);
             }
             else
             {
-                cout << "CURRENTLY: PARKING ON THE RIGHT SIDE." << endl;
+                print_reminder_current("RIGHT");
                 int diff_hour = 19 - hour;
                 int diff_minute = 60 - minute;
                 print_reminder_to_move(diff_hour, diff_minute);
+                print_reminder_for_tonight("LEFT");
             }
-            cout << "TONIGHT:   PARKING ON THE LEFT SIDE." << endl;
-
         }
         else
         {
             if (hour > 18)
             {
-                cout << "CURRENTLY: PARKING ON THE RIGHT SIDE." << endl;
+                print_reminder_current("RIGHT");
                 print_reminder_to_move(-1, -1);
             }
             else
             {
-                cout << "CURRENTLY: PARKING ON THE LEFT SIDE." << endl;
+                print_reminder_current("LEFT");
                 int diff_hour = 19 - hour;
                 int diff_minute = 60 - minute;
                 print_reminder_to_move(diff_hour, diff_minute);
+                print_reminder_for_tonight("RIGHT");
             }
-            cout << "TONIGHT:   PARKING ON THE RIGHT SIDE." << endl;
-
         }
     }
 private:
@@ -63,7 +61,7 @@ private:
         {
             cout << "YOU'RE ALL SET. NO MOVING NEEDED." << endl;
         }
-        if (diff_hour == 1)
+        else if (diff_hour == 1)
         {
             cout << "In " << to_string(diff_minute) << " minutes, move your car to the other side." << endl;
         }
@@ -73,6 +71,16 @@ private:
             string h = diff_hour > 1 ? " hours" : " hour";
             cout << "In " << to_string(diff_hour) << h << " and " << to_string(diff_minute) << " minutes, move your car to the other side." << endl;
         }
+    }
+
+    void print_reminder_current(const string &side)
+    {
+        cout << "CURRENTLY: PARKING ON THE " << side << " SIDE." << endl;
+    }
+
+    void print_reminder_for_tonight(const string &side)
+    {
+        cout << "TONIGHT:   PARKING ON THE " << side << " SIDE." << endl;
     }
 
     vector<string> split(const string &original)
