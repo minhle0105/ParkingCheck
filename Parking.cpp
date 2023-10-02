@@ -12,11 +12,11 @@ public:
     {
         time_t now = time(0);
         string date_time = ctime(&now);
-
+        int length = date_time.size();
         vector<string> res = split(date_time);
         string date = res.at(0);
-        int hour = stoi(res.at(3).substr(0, 2));
-        int minute = stoi(res.at(3).substr(3, 2));
+        int hour = stoi(date_time.substr(length - 14, 2));
+        int minute = stoi(date_time.substr(length - 11, 2));
         if (date == "Sun")
         {
             print_reminder_current("RIGHT");
@@ -105,4 +105,5 @@ int main()
 {
     Parking p;
     p.printDateTime();
+    return 0;
 }
